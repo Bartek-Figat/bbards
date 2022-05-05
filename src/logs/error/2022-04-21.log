@@ -1,0 +1,72 @@
+2022-04-21 15:37:48 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)
+2022-04-21 15:40:18 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)
+2022-04-21 15:43:33 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)
+2022-04-21 15:47:00 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)
+2022-04-21 15:51:27 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)
+2022-04-21 15:53:07 error: uncaughtException: Cannot read properties of undefined (reading '_repository')
+TypeError: Cannot read properties of undefined (reading '_repository')
+    at C:\Respository\szuflada-servts\src\services\services.ts:61:34
+    at Generator.next (<anonymous>)
+    at C:\Respository\szuflada-servts\src\services\services.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Respository\szuflada-servts\src\services\services.ts:4:12)
+    at UserRegister (C:\Respository\szuflada-servts\src\services\services.ts:58:16)
+    at Layer.handle [as handle_request] (C:\Respository\szuflada-servts\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Respository\szuflada-servts\node_modules\express\lib\router\route.js:137:13)
+    at C:\Respository\szuflada-servts\src\validation\validation.ts:41:12
+    at Generator.next (<anonymous>)

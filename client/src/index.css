@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .register-input-container {
+    @apply flex flex-wrap -mx-3 mb-4;
+  }
+  .register-input-wrapper {
+    @apply w-full px-3;
+  }
+  .register-input {
+    @apply bg-white border border-gray-300 focus:border-gray-500 w-full text-gray-800 rounded-sm;
+  }
+
+  .register-label {
+    @apply block text-gray-800 text-sm font-medium mb-1;
+  }
+  .btn {
+    @apply font-medium text-sm inline-flex items-center justify-center border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out;
+  }
+  .btn-sm {
+    @apply px-4 py-2 shadow  rounded-sm;
+  }
+}
+
+
