@@ -2,11 +2,12 @@
   "name": "szuflada-servts",
   "version": "1.0.0",
   "description": "Adds",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
+    "start": "tsc && node dist/server.js",
     "dev": "nodemon",
     "prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js",
-    "build": "swc src -d dist --source-maps --copy-files"
+    "build": "tsc -p ."
   },
   "author": "Bartek Figatowski",
   "license": "ISC",
