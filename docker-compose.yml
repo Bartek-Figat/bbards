@@ -104,8 +104,6 @@ services:
 networks:
   app-network:
     driver: bridge
-  nginx-network:
-    driver: bridge
   db:
     driver: bridge
 
