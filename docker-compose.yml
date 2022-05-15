@@ -108,11 +108,6 @@ networks:
     driver: bridge
   db:
     driver: bridge
-  nginx_proxy_manager:
-    name: npm_network
-  default:
-    external:
-      name: web
 
 volumes:
   mongo-data:
