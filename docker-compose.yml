@@ -52,8 +52,8 @@ services:
       - ./src/data:/app/data
     environment:
       - dbURI=mongodb://root:example@mongo:27017
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     networks:
       - app-network
       - db
