@@ -41,7 +41,7 @@ services:
 
   backend:
     container_name: backend
-    image: bartek1983/bbards:latest
+    # image: bartek1983/bbards:latest
     build:
       context: .
       dockerfile: ./.docker/Dockerfile
