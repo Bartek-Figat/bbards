@@ -1,0 +1,4 @@
+2022/05/15 22:08:36 [error] 286#286: *1 frontend could not be resolved (110: Operation timed out), client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2022/05/15 22:09:06 [error] 286#286: *2 frontend could not be resolved (110: Operation timed out), client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/05/15 22:10:32 [error] 307#307: *8 frontend could not be resolved (110: Operation timed out), client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2022/05/15 22:11:02 [error] 307#307: *8 frontend could not be resolved (110: Operation timed out), client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"

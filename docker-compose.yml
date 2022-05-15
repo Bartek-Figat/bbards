@@ -19,8 +19,6 @@ x-backend:
     - app-network
   depends_on:
     - mongo
-  links:
-    - mongo
 
 services:
 
@@ -31,24 +29,43 @@ services:
       - 443:443
     volumes:
       - ./.docker/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./.docker/sites-enabled/site-enabled.conf:/etc/nginx/sites-enabled:ro
-      - ./.docker/sites-available/sites-available.conf:/etc/nginx/sites-available:ro
+      - ./.docker/default.conf:/etc/nginx/default.conf:ro
       - static-files:/usr/share/nginx/html
     depends_on:
-      - backend1
-      - backend2
-      - backend3
+      - backend
       - frontend
+    links:
+      - backend
+      - frontend
+    restart: always
 
-  backend1:
-    <<: *backend
-    container_name: backend1
-  backend2:
-    <<: *backend
-    container_name: backend2
-  backend3:
-    <<: *backend
-    container_name: backend3
+  backend:
+    container_name: backend
+    image: bartek1983/bbards:latest
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    restart: always
+    command: npm run dev
+    volumes:
+      - ./src:/app/src
+      - ./src/data:/app/data
+    environment:
+      - dbURI=mongodb://root:example@mongo:27017
+    env_file:
+      - .env
+    networks:
+      - app-network
+      - db
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    logging:
+      options:
+        tag: api
+    ports:
+      - 8080:8080
 
   frontend:
     container_name: frontend
@@ -62,46 +79,40 @@ services:
       - ./client/src:/app/src
       - static-files:/app/build
     depends_on:
-      - backend1
-      - backend2
-      - backend3
+      - backend
+    logging:
+      options:
+        tag: client
+    ports:
+      - 3000:3000
 
   mongo:
     container_name: mongo
     image: mongo
     restart: always
     networks:
-      - app-network
+      - db
     volumes:
       - mongo-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    container_name: mongo-express
-    image: mongo-express
-    restart: always
-    networks:
-      - app-network
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    logging:
+      options:
+        tag: mongo
 
 networks:
   app-network:
     driver: bridge
   nginx-network:
     driver: bridge
+  db:
+    driver: bridge
   nginx_proxy_manager:
     name: npm_network
+  default:
+    external:
+      name: web
 
 volumes:
   mongo-data:

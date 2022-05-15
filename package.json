@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "tsc && node dist/server.js",
+    "dist:dev": "nodemon dist/server.js",
     "dev": "nodemon",
     "prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js",
     "build": "tsc -p ."
