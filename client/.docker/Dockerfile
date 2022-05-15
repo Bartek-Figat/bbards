@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install --silent
 
-RUN npm run build
+RUN npm ci && npm run build
 
 EXPOSE 3000
 
