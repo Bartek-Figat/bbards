@@ -10,7 +10,7 @@ RUN rm -rf node_modules
 
 RUN npm install --silent
 
-ENV REACT_APP_NAME=bbards
+RUN npm ci --production
 
 RUN npm run build
 
