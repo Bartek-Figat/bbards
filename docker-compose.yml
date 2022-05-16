@@ -76,7 +76,6 @@ services:
     networks:
       - app-network
     volumes:
-      - ./client:/app/node-modules
       - static-files:/app/build
     depends_on:
       - backend
