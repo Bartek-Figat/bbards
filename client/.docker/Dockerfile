@@ -1,18 +1,23 @@
-FROM node:alpine
-
+FROM node:latest
+# set the working direction
 WORKDIR /app
 
-COPY package*.json ./
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . .
+# install app dependencies
+COPY package.json ./
 
-RUN npm ci --silent
-
-RUN npm install react-scripts@3.4.1 -g --silent
-
-COPY . .
+COPY package-lock.json ./
 
 RUN npm install
+
+# add app
+COPY . ./
+
+# RUN git clone
+
+# RUN apk update && apk add git
 
 RUN npm run build
 
