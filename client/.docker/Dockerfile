@@ -1,4 +1,5 @@
-FROM node:latest
+FROM node:alpine
+
 # set the working direction
 WORKDIR /app
 
@@ -10,14 +11,16 @@ COPY package.json ./
 
 COPY package-lock.json ./
 
+RUN npm install -g npm@8.10.0
+
 RUN npm install
 
 # add app
 COPY . ./
 
-# RUN git clone
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
 
-# RUN apk update && apk add git
 
 RUN npm run build
 
