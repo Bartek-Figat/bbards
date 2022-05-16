@@ -8,7 +8,7 @@ RUN npm install -g npm@latest
 
 RUN rm -rf node_modules
 
-RUN -c npm install --silent
+RUN npm install --silent
 
 RUN npm run build
 
