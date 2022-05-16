@@ -1,4 +1,4 @@
-FROM node:lts-alpine as stage
+FROM node:alpine
 
 WORKDIR /app
 
@@ -9,6 +9,8 @@ COPY . .
 RUN npm install -g npm@latest
 
 RUN npm install --silent
+
+CMD /app/client
 
 RUN npm run build
 
