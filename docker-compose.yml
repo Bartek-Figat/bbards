@@ -79,6 +79,8 @@ services:
       - static-files:/app/build
     depends_on:
       - backend
+    environment:
+      - CI=true
     logging:
       options:
         tag: client
