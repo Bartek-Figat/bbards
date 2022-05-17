@@ -2,11 +2,12 @@ FROM node:18-buster
 
 WORKDIR /app
 
+COPY . .
+
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --save
 
-COPY . .
 
 # RUN apk update && apk upgrade && \
 #     apk add --no-cache bash git openssh
