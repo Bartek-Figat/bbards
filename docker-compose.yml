@@ -36,7 +36,7 @@ services:
       - frontend
     links:
       - backend
-      - frontend
+      # - frontend
     restart: always
 
   backend:
