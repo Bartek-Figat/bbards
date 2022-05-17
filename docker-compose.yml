@@ -32,11 +32,9 @@ services:
       - ./.docker/sites-enabled:/etc/nginx/sites-enabled:ro
       - ./client/build:/usr/share/nginx/html
     depends_on:
-      - backend
       - frontend
     links:
       - backend
-      # - frontend
     restart: always
 
   backend:
