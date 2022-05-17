@@ -14,7 +14,7 @@ RUN npm cache clean --force
 # RUN apk update && apk upgrade && \
 #     apk add --no-cache bash git openssh
 
-CMD ["/bin/sh", "-c", "npm", "run", "buid"]
+CMD ["/bin/sh", "-c", "npm", "run", "build"]
 
 
 
