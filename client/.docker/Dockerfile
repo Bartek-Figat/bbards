@@ -1,23 +1,15 @@
-FROM node:alpine
+FROM node:18-buster
 
-# set the working direction
 WORKDIR /app
 
-# install app dependencies
-COPY package.json ./
-
-COPY package-lock.json ./
-
-RUN npm install -g npm@8.10.0
+COPY package*.json ./
 
 RUN npm install
 
-# add app
-COPY . ./
+COPY . .
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
-
+# RUN apk update && apk upgrade && \
+#     apk add --no-cache bash git openssh
 
 RUN npm run build
 
