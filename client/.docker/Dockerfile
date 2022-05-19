@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine
+FROM node:16.13.2-alpine as builder
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
