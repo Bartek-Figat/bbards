@@ -10,9 +10,7 @@ RUN ls -l /app
 
 RUN echo "==========================="
 
-COPY package.json ./
-
-COPY package-lock.json ./
+COPY package*.json ./
 
 RUN echo "Print files from ./"
 
@@ -20,7 +18,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN npm ci --silent --network-timeout 180000
+RUN npm ci --only=production
 
 RUN npm install react-scripts@3.4.1 -g --silent 
 
