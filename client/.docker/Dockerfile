@@ -1,21 +1,21 @@
-FROM node:16.13.0
+FROM node:16.13.2-alpine
 
 WORKDIR /app
 
 
-COPY package*.json ./
+ENV PATH /app/node_modules/.bin:$PATH
 
-# Install the node packages before copying the files
-RUN npm install
+COPY package.json ./
 
+COPY package-lock.json ./
 
-COPY . .
+RUN npm ci --silent
 
-# RUN apk update && apk upgrade && \
-#     apk add --no-cache bash git openssh
+RUN npm install react-scripts@3.4.1 -g --silent
 
+COPY ./client ./
 
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 
 
