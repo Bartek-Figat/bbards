@@ -10,7 +10,7 @@ COPY package.json ./
 
 COPY package-lock.json ./
 
-RUN npm ci --silent
+RUN npm ci --silent --network-timeout 180000
 
 RUN npm install react-scripts@3.4.1 -g --silent
 
