@@ -18,7 +18,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN npm ci --only=production
+RUN /bin/bash -c npm ci --only=production
 
 RUN npm install react-scripts@3.4.1 -g --silent 
 
@@ -30,7 +30,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN npm run build
+RUN /bin/bash -c npm run build 
 
 
 
