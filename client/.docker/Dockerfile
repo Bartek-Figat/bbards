@@ -12,12 +12,17 @@ RUN echo "==========================="
 
 COPY package*.json ./
 
+COPY src ./src
+
+COPY public ./public
+
 RUN echo "Print files from ./"
 
 RUN ls -l ./
 
 RUN echo "==========================="
 
+RUN npm install -g react-scripts
 RUN npm install
 
 COPY . ./
@@ -28,8 +33,8 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN /bin/bash -c npm run build 
 
+CMD ["npm", "run" , "build"]
 
 
 
