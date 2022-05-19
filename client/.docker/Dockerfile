@@ -12,6 +12,8 @@ RUN echo "==========================="
 
 COPY package*.json ./
 
+COPY yarn.lock ./
+
 COPY src ./src
 
 COPY public ./public
@@ -22,8 +24,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN npm install -g react-scripts
-RUN npm install
+RUN yarn install --production
 
 COPY . ./
 
@@ -33,8 +34,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-
-CMD ["npm", "run" , "build"]
+RUN yarn build
 
 
 
