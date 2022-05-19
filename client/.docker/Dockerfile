@@ -18,9 +18,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN /bin/bash -c npm ci --only=production
-
-RUN npm install react-scripts@3.4.1 -g --silent 
+RUN npm install
 
 COPY . ./
 
