@@ -80,7 +80,7 @@ services:
     depends_on:
       - backend
     environment:
-      - CHOKIDIR_USEPOLLING=true
+      - CHOKIDAR_USEPOLLING=true
     stdin_open: true
     logging:
       options:
