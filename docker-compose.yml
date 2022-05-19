@@ -30,7 +30,6 @@ services:
     volumes:
       - ./.docker/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./.docker/sites-enabled:/etc/nginx/sites-enabled:ro
-      - static-files:/usr/share/nginx/html
     depends_on:
       - backend
       - frontend
@@ -76,11 +75,13 @@ services:
     networks:
       - app-network
     volumes:
-      - static-files:/app/build
+      - ./client:/app
+      - /app/node_modules
     depends_on:
       - backend
     environment:
-      - CI=true
+      - CHOKIDIR_USEPOLLING=true
+    stdin_open: true
     logging:
       options:
         tag: client
