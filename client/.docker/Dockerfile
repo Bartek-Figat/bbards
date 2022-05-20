@@ -22,7 +22,7 @@ RUN ls -l ./
 
 RUN echo "==========================="
 
-RUN yarn install --production
+RUN yarn install --legacy-peer-deps --production
 
 COPY . ./
 
