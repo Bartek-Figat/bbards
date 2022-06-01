@@ -2,6 +2,9 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screen: {
+      desktop: '1280px',
+      laptop: '1024px',
+      tablet: '640px',
       xxs: '540px',
     },
     extend: {
@@ -82,8 +85,7 @@ module.exports = {
         wiggle: 'wiggle 1s ease-in-out infinite',
       },
       fontFamily: {
-        body: ["'Inter', sans-serif"],
-        manrope: ["'Manrope', sans-serif"],
+        body: ["'Roboto', sans-serif"],
       },
       boxShadow: {
         card: '0px 0px 6px rgba(79, 95, 120, 0.1)',

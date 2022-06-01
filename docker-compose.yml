@@ -28,8 +28,6 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./.docker/sites-enabled:/etc/nginx/site-enabled
-      - ./.docker/sites-enabled:/etc/nginx/sites-available
       - static-files:/usr/share/nginx/html
     depends_on:
       - backend

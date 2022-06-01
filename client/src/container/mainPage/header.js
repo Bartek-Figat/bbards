@@ -147,7 +147,7 @@ function Header() {
                 <li>
                   <Link
                     to="/login"
-                    className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                    className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out btn btn-primary shadow"
                   >
                     Sign in
                   </Link>
@@ -155,7 +155,7 @@ function Header() {
                 <li>
                   <Link
                     to="/register"
-                    className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
+                    className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3 btn btn-primary"
                   >
                     <span>Sign up</span>
                   </Link>

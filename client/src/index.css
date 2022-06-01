@@ -22,6 +22,18 @@
   .btn-sm {
     @apply px-4 py-2 shadow  rounded-sm;
   }
+
+  .lift {
+    transition: box-shadow .25s ease,-webkit-transform .25s ease;
+    transition: box-shadow .25s ease,transform .25s ease;
+    transition: box-shadow .25s ease,transform .25s ease,-webkit-transform .25s ease;
+    margin-right: 0.75rem!important;
+    margin-top: 0.75rem!important;
+
 }
+
+
+}
+
 
 

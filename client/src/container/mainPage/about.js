@@ -20,7 +20,7 @@ export const About = () => {
                   discounted products from here and get a special discount.
                 </p>
                 <Link
-                  class="lg:w-1/4 text-xs font-serif font-medium inline-block mt-5 px-8 py-3 bg-emerald-500 text-center text-white rounded hover:text-white hover:bg-emerald-600"
+                  class="lg:w-1/4 text-xs font-serif font-medium inline-block mt-5 px-8 py-3 bg-emerald-500 text-center text-white rounded hover:text-white hover:bg-emerald-600 lift"
                   to="/register"
                 >
                   Download App
