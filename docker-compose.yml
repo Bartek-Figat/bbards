@@ -1,25 +1,5 @@
 version: "3.7"
 
-x-backend:
-  &backend
-  container_name: backend
-  build:
-    context: .
-    dockerfile: ./.docker/Dockerfile
-  restart: always
-  command: npm run dev
-  volumes:
-    - ./src:/app/src
-    - ./src/data:/app/data
-  environment:
-    - dbURI=mongodb://root:example@mongo:27017
-  env_file:
-    - .env
-  networks:
-    - app-network
-  depends_on:
-    - mongo
-
 services:
 
   nginx:
@@ -28,12 +8,13 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./.docker/sites-enabled:/etc/nginx/site-enabled
-      - ./.docker/sites-enabled:/etc/nginx/sites-available
-      - static-files:/usr/share/nginx/html
+      - ./.docker/nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
+      - ./.docker/nginx/sites/:/etc/nginx/conf.d
     depends_on:
       - backend
       - frontend
+    networks:
+      - app-network
     links:
       - backend
       - frontend
@@ -41,15 +22,10 @@ services:
 
   backend:
     container_name: backend
-    # image: bartek1983/bbards:latest
     build:
       context: .
       dockerfile: ./.docker/Dockerfile
     restart: always
-    command: npm run dev
-    volumes:
-      - ./src:/app/src
-      - ./src/data:/app/data
     environment:
       - dbURI=mongodb://root:example@mongo:27017
     # env_file:
@@ -61,12 +37,6 @@ services:
       - mongo
     links:
       - mongo
-    logging:
-      options:
-        tag: api
-    ports:
-      - 8080:8080
-
   frontend:
     container_name: frontend
     build:
@@ -75,18 +45,10 @@ services:
     restart: on-failure
     networks:
       - app-network
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-      - static-files:/app/build
     depends_on:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
-    stdin_open: true
-    logging:
-      options:
-        tag: client
 
   mongo:
     container_name: mongo
@@ -99,9 +61,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    logging:
-      options:
-        tag: mongo
 
 networks:
   app-network:
