@@ -12,7 +12,7 @@ FROM nginx
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /app/build/* /usr/share/nginx/html/
+COPY --from=builder /app/build /usr/share/nginx/html/
 
 
 
