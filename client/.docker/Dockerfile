@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install --legacy-peer-deps --production
+RUN yarn install 
 
 RUN yarn build
 
