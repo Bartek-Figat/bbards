@@ -10,9 +10,11 @@ RUN yarn build
 
 FROM nginx
 
+COPY --from=builder /app/build /usr/share/nginx/html/
+
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /app/build /usr/share/nginx/html/
+RUN ls -l /usr/share/nginx/html
 
 
 
