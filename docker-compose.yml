@@ -8,7 +8,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - static-files:/usr/share/nginx/html
+      - ./.docker/nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
+      - ./.docker/nginx/sites/:/etc/nginx/conf.d
     depends_on:
       - backend
       - frontend
@@ -71,5 +72,3 @@ volumes:
   mongo-data:
     driver: local
   static-files:
-
-
