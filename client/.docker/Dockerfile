@@ -2,22 +2,25 @@ FROM node:16.13.2-alpine as builder
 
 WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
+COPY package.json ./
+COPY yarn.lock ./
+COPY src ./src
+COPY public ./public
 
-RUN yarn install --production
+
+RUN yarn install
 
 COPY . .
 
 RUN yarn build
 
-FROM nginx AS production
+FROM nginx
 
 COPY --from=builder /app/build /usr/share/nginx/html/
 
-EXPOSE 80
+WORKDIR /usr/share/nginx/html
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN ls -l /usr/share/nginx/html
 
 
 
