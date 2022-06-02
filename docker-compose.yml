@@ -9,7 +9,10 @@ services:
       - 443:443
     volumes:
       - ./.docker/nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
-      - ./.docker/nginx/sites/:/etc/nginx/conf.d
+      - ./.docker/nginx/sites:/etc/nginx/conf.d
+      - ./.docker/nginx/sites:/etc/nginx/sites-enabled
+      - ./.docker/nginx/sites:/etc/nginx/sites-available
+      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - backend
       - frontend
