@@ -37,6 +37,7 @@ services:
       - mongo
     links:
       - mongo
+
   frontend:
     container_name: frontend
     build:
