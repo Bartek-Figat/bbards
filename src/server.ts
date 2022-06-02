@@ -23,7 +23,7 @@ server.use(express.json({ limit: '10mb' }));
 server.use(compression());
 server.use(
   cors({
-    origin: 'http://bbards.com/',
+    origin: '*',
     credentials: true,
   })
 );
