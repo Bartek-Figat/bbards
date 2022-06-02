@@ -21,7 +21,12 @@ const server: Express = express();
 server.use(express.urlencoded({ limit: '10mb', extended: true }));
 server.use(express.json({ limit: '10mb' }));
 server.use(compression());
-server.use(cors());
+server.use(
+  cors({
+    origin: 'http://bbards.com/',
+    credentials: true,
+  })
+);
 server.use(helemt());
 server.use(morgan('tiny'));
 
