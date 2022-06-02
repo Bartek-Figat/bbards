@@ -2,9 +2,15 @@ FROM node:16.13.2-alpine as builder
 
 WORKDIR /app
 
-COPY . .
+COPY package.json ./
+COPY yarn.lock ./
+COPY src ./src
+COPY public ./public
 
-RUN yarn install 
+
+RUN yarn install
+
+COPY . .
 
 RUN yarn build
 
@@ -14,7 +20,7 @@ COPY --from=builder /app/build /usr/share/nginx/html/
 
 WORKDIR /usr/share/nginx/html
 
-RUN ls -l /usr/share/nginx/html/static
+RUN ls -l /usr/share/nginx/html
 
 
 
