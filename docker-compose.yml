@@ -10,7 +10,6 @@ services:
     volumes:
       - ./.docker/nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
       - ./.docker/nginx/sites/:/etc/nginx/conf.d
-      - static-files:/usr/share/nginx/html
     depends_on:
       - backend
       - frontend
@@ -44,8 +43,6 @@ services:
       context: ./client
       dockerfile: ./.docker/Dockerfile
     restart: on-failure
-    volumes:
-      - static-files:/app/build
     networks:
       - app-network
     depends_on:
