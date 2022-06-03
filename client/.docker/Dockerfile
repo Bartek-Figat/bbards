@@ -22,9 +22,6 @@ WORKDIR /usr/share/nginx/html
 
 RUN ls -l /usr/share/nginx/html
 
-EXPOSE 80
-
-CMD ["/bin/bash", "-c", "nginx -g 'daemon off;'"]
 
 
 
