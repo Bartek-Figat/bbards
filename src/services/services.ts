@@ -6,7 +6,6 @@ import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { createTransport } from 'nodemailer';
 import { StatusCode, ErrorMessage } from '../enum';
-import { crossOriginResourcePolicy } from 'helmet';
 
 dotenv.config();
 const { secret, user, pass } = process.env;
@@ -48,7 +47,7 @@ export class Service {
       text: ' Node.js',
       html: `Hello.
           Thank you for registering. Please click the link to complete yor activation
-          <a href='http://localhost:3000/activate/${authToken}'>Activation Link</a>`,
+          <a href='http://bbards.com/activate/${authToken}'>Activation Link</a>`,
     });
   }
 

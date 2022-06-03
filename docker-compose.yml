@@ -28,6 +28,12 @@ services:
     restart: always
     environment:
       - dbURI=mongodb://root:example@mongo:27017
+      - secret: ${secret}
+      - user: ${user}
+      - pass: ${pass}
+      - SUPABASE_KEY: ${SUPABASE_KEY}
+      - SUPABASE_URL: ${SUPABASE_URL}
+
     # env_file:
     #   - .env
     networks:
@@ -43,6 +49,7 @@ services:
     build:
       context: ./client
       dockerfile: ./.docker/Dockerfile
+      target: production
     restart: on-failure
     networks:
       - app-network
