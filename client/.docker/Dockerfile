@@ -20,8 +20,6 @@ COPY --from=builder /app/build /usr/share/nginx/html/
 
 WORKDIR /usr/share/nginx/html
 
-RUN apk add --no-cache bash
-
 RUN ls -l /usr/share/nginx/html
 
 EXPOSE 80
