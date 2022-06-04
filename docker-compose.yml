@@ -8,8 +8,9 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./.docker/nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
-      - ./.docker/nginx/sites/:/etc/nginx/conf.d
+      - ./.docker/sites-available/:/etc/nginx/sites-available
+      - ./.docker/sites-enabled/:/etc/nginx/sites-enabled
+      - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
       - frontend
