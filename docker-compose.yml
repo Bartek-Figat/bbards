@@ -9,8 +9,8 @@ services:
       - 443:443
     volumes:
       - ./.docker/sites-available/:/etc/nginx/sites-available
-      - ./.docker/sites-enabled/:/etc/nginx/sites-enabled
       - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    command: ln -s /etc/nginx/sites-available/bbards.com /etc/nginx/sites-enabled/bbards.com && ln -s /etc/nginx/sites-available/api.bbards.com /etc/nginx/sites-enabled/api.bbards.com
     depends_on:
       - backend
       - frontend
