@@ -16,11 +16,13 @@ RUN yarn build
 
 FROM nginx
 
+WORKDIR /usr/share/nginx/html
+
 COPY --from=builder /app/build /usr/share/nginx/html/
 
 # RUN rm /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/share/nginx/html
+
 
 RUN ls -l /usr/share/nginx/html
 
