@@ -107,7 +107,9 @@ export class Service {
   }
   async userEmailConfiramtion(req: Request, res: Response, next: NextFunction) {
     const { token } = req.params;
+    console.log('token', token);
     const authToken = await this.repository.findOne({ authToken: token }, { authToken: 1, _id: 0 });
+    console.log('authToken', authToken);
     try {
       if (!authToken) {
         res.status(StatusCode.BAD_REQUEST).json({
