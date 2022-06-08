@@ -2,7 +2,7 @@
   "name": "szuflada-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": ".",
   "dependencies": {
     "tailwindcss": "^3.0.23",
     "@tailwindcss/aspect-ratio": "^0.4.0",
