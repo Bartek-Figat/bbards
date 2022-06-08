@@ -21,12 +21,13 @@ const server: Express = express();
 server.use(express.urlencoded({ limit: '50mb', extended: true }));
 server.use(express.json({ limit: '50mb' }));
 server.use(compression());
-server.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  })
-);
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 server.use(helemt());
 server.use(morgan('tiny'));
 
