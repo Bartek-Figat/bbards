@@ -9,7 +9,7 @@ export class Repository {
   constructor(private db: DataBase = new DataBase()) {}
 
   async findOne<T>(query: T, projection: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbURI, { useNewUrlParser: true });
+    const { collection, client } = await this.db.connect('mongodb://mongo:27017', { useNewUrlParser: true });
     try {
       const result = await collection.findOne(query, { projection });
       return result;
@@ -21,7 +21,7 @@ export class Repository {
   }
 
   async find<T>(query: T, projection?: T): Promise<Document[]> {
-    const { collection, client } = await this.db.connect(dbURI, { useNewUrlParser: true });
+    const { collection, client } = await this.db.connect('mongodb://mongo:27017', { useNewUrlParser: true });
     try {
       const result = await collection.find(query, { projection }).toArray();
       return result;
@@ -33,7 +33,7 @@ export class Repository {
   }
 
   async insertOne<T>(document: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbURI, { useNewUrlParser: true });
+    const { collection, client } = await this.db.connect('mongodb://mongo:27017', { useNewUrlParser: true });
     try {
       const result = await collection.insertOne(document);
       return result;
@@ -45,7 +45,7 @@ export class Repository {
   }
 
   async updateOne<T>(filter: T, update: T, options: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbURI, { useNewUrlParser: true });
+    const { collection, client } = await this.db.connect('mongodb://mongo:27017', { useNewUrlParser: true });
     try {
       const result = await collection.updateOne(filter, update, options);
       return result;
