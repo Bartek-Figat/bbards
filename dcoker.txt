@@ -62,6 +62,7 @@
   #   - 8080:8080
   # docker-compose down --remove-orphans
   # docker-compose up -d --build
+  #  docker-compose up -d --build && docker image prune --force
   # docker-compose logs -f backend
   # ls -la
   # docker inspect f6f
