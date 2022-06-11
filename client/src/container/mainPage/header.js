@@ -4,6 +4,7 @@ import Transition from '../../utils/transition';
 import Dropdown from '../../utils/dropdown';
 import { SiMetrodelaciudaddemexico } from 'react-icons/si';
 import { ROUTES } from '../../router/router';
+import Logout from '../../componets/logout';
 
 function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -138,7 +139,7 @@ function Header() {
                     to="/logout"
                     className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
                   >
-                    <span>Logout</span>
+                    <button onClick={() => Logout()}>Logout</button>
                   </Link>
                 </li>
               </ul>
@@ -260,7 +261,7 @@ function Header() {
                       </Link>
                       <Link to={`${ROUTES.LOGOUT}`}>
                         <li className="btn-sm text-gray-200 text-center bg-gray-900 hover:bg-gray-800 w-full my-2">
-                          <span>Logout</span>
+                          <button onClick={() => Logout()}>Logout</button>
                         </li>
                       </Link>
                     </>

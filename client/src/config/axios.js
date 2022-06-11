@@ -4,6 +4,7 @@ const token = localStorage.getItem('token');
 
 export const authAxios = axios.create({
   baseURL,
+  credentials: 'include',
   headers: {
     Authorization: `Bearer ${token}`,
   },
