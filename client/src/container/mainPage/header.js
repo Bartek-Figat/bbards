@@ -134,13 +134,8 @@ function Header() {
                     Dashboard
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/logout"
-                    className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
-                  >
-                    <button onClick={() => Logout()}>Logout</button>
-                  </Link>
+                <li className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
+                  <button onClick={() => Logout()}>Logout</button>
                 </li>
               </ul>
             ) : (
@@ -259,11 +254,9 @@ function Header() {
                           <span>Dashboard</span>
                         </li>
                       </Link>
-                      <Link to={`${ROUTES.LOGOUT}`}>
-                        <li className="btn-sm text-gray-200 text-center bg-gray-900 hover:bg-gray-800 w-full my-2">
-                          <button onClick={() => Logout()}>Logout</button>
-                        </li>
-                      </Link>
+                      <li className="btn-sm text-gray-200 text-center bg-gray-900 hover:bg-gray-800 w-full my-2">
+                        <button onClick={() => Logout()}>Logout</button>
+                      </li>
                     </>
                   ) : (
                     <>
