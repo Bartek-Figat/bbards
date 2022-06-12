@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 async function Logout() {
-  const jwt = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   await axios.get('http://api.bbards.com/api/v1/logout', {
     credentials: 'include',
     headers: {
-      Authorization: jwt,
+      Authorization: `Bearer ${token}`,
     },
   });
   localStorage.removeItem('token');
