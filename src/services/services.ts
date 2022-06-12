@@ -147,7 +147,7 @@ export class Service {
     try {
       console.log(token);
       req.user = null;
-      return res.status(200).json({ message: 'You have been logged out successfully' });
+      return res.status(200).json({ message: 'You have been logged out successfully' }).removeHeader('Authorization');
     } catch (err) {
       res.status(StatusCode.FORBIDDEN);
     }
