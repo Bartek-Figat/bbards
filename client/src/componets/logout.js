@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { authAxios } from '../config/axios';
-import { ROUTES } from '../router/router';
+import axios from 'axios';
 
 async function Logout() {
-  let navigate = useNavigate();
-  authAxios.delete(`/logout`);
+  const jwt = localStorage.getItem('token');
+  await axios.delete('http://localhost:8080/logout', {
+    credentials: 'include',
+    headers: {
+      Authorization: jwt,
+    },
+  });
   localStorage.removeItem('token');
-  navigate(`${ROUTES.LOGIN}`, { replace: true });
+  window.location.href = '/';
 }
 
 export default Logout;

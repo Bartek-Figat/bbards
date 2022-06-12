@@ -12,13 +12,7 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
       return res.status(StatusCode.UNAUTHORIZED).json({
         status: `${StatusCode.UNAUTHORIZED}`,
       });
-
-    if (req.originalUrl !== '/api/v1/logout') {
-      req.user = token as JwtPayload;
-      next();
-    } else {
-      req.user = null;
-      next();
-    }
+    req.user = token as JwtPayload;
+    next();
   });
 };
