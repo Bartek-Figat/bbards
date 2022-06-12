@@ -19,6 +19,6 @@ router.post('/login', userLoginValidation, service.userLogin.bind(service));
 
 router.put('/update');
 
-router.get('/logout', service.userLogout.bind(service));
+router.get('/logout', isAuthenticated, service.userLogout.bind(service));
 
 export default router;
