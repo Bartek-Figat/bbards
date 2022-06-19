@@ -3,13 +3,13 @@ import { Document, Collection, MongoClient } from 'mongodb';
 import { DataBase } from '../db/db';
 dotenv.config();
 
-const { dbURI } = process.env;
+const { dbDEV, dbPROD } = process.env;
 
 export class Repository {
   constructor(private db: DataBase = new DataBase()) {}
 
   async findOne<T>(query: T, projection: T): Promise<Document> {
-    const { collection, client } = await this.db.connect('mongodb://root:example@mongo:27017/', {
+    const { collection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
@@ -23,7 +23,7 @@ export class Repository {
   }
 
   async find<T>(query: T, projection?: T): Promise<Document[]> {
-    const { collection, client } = await this.db.connect('mongodb://root:example@mongo:27017/', {
+    const { collection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
@@ -37,7 +37,7 @@ export class Repository {
   }
 
   async insertOne<T>(document: T): Promise<Document> {
-    const { collection, client } = await this.db.connect('mongodb://root:example@mongo:27017/', {
+    const { collection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
@@ -50,12 +50,12 @@ export class Repository {
     }
   }
 
-  async updateOne<T>(filter: T, update: T, options: T): Promise<Document> {
-    const { collection, client } = await this.db.connect('mongodb://root:example@mongo:27017/', {
+  async updateOne<T>(filter: T, updateDoc: T, options: T): Promise<Document> {
+    const { collection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.updateOne(filter, update, options);
+      const result = await collection.updateOne(filter, updateDoc, options);
       return result;
     } catch (err) {
       console.log(err);

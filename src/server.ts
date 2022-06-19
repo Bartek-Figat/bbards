@@ -1,13 +1,12 @@
 import { config } from 'dotenv';
 import express, { Express } from 'express';
-import cors from 'cors';
+import session from 'express-session';
 import helemt from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
 import process from 'process';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { logger, stream } from './utils/logger';
 import router from './routes/routes';
 
 config();

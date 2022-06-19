@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
+import Logout from '../../componets/logout';
 
 export const AccountNav = ({ options }) => {
   const location = useLocation();
@@ -10,8 +11,6 @@ export const AccountNav = ({ options }) => {
     <nav className="flex flex-col pb-2 md:pb-6 border border-border-base rounded-md overflow-hidden">
       {options.map((item) => {
         const menuPathname = item.slug;
-        console.log('location.pathname', location.pathname);
-        console.log('item.slug', item.slug);
         return (
           <Link key={item.slug} to={item.slug}>
             <p
@@ -25,7 +24,10 @@ export const AccountNav = ({ options }) => {
           </Link>
         );
       })}
-      <button className="flex items-center text-sm lg:text-15px text-brand-dark py-3.5 px-3.5 xl:px-4 2xl:px-5 mb-1 cursor-pointer focus:outline-none">
+      <button
+        className="flex items-center text-sm lg:text-15px text-brand-dark py-3.5 px-3.5 xl:px-4 2xl:px-5 mb-1 cursor-pointer focus:outline-none"
+        onClick={() => Logout()}
+      >
         <span className="w-9 xl:w-10 shrink-0 flex justify-center">
           <FiLogOut className="w-5 md:w-[22px] h-5 md:h-[22px]" />
         </span>

@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { userRegisterValidatioin, userLoginValidation } from '../validation/validation';
-import { isAuthenticated } from '../middleware/middleware';
+import { Middleware } from '../middleware/middleware';
 import { Service } from '../services/services';
 const router = Router({
   caseSensitive: true,
@@ -8,8 +8,9 @@ const router = Router({
 });
 
 const service = new Service();
+const middleware = new Middleware();
 
-router.get('/user', isAuthenticated, service.userData.bind(service));
+router.get('/user', middleware.isAuthenticated.bind(middleware), service.userData.bind(service));
 
 router.post('/registration', userRegisterValidatioin, service.userRegister.bind(service));
 
@@ -19,6 +20,6 @@ router.post('/login', userLoginValidation, service.userLogin.bind(service));
 
 router.put('/update');
 
-router.get('/logout', isAuthenticated, service.userLogout.bind(service));
+router.get('/logout', middleware.isAuthenticated.bind(middleware), service.userLogout.bind(service));
 
 export default router;

@@ -31,6 +31,8 @@ export const RegisterUserForm = () => {
   const dispatch = useDispatch();
   const { register } = useSelector((state) => state);
 
+  console.log(register);
+
   return (
     <main className="bg-white">
       <div className="relative md:flex">
@@ -78,7 +80,7 @@ export const RegisterUserForm = () => {
                   isSubmitting,
                 }) => (
                   <Form onSubmit={handleSubmit}>
-                    {register.success.length > 0 ? (
+                    {register.success ? (
                       <div
                         className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
                         role="alert"

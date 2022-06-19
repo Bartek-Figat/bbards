@@ -47,7 +47,7 @@ export class Service {
       text: ' Node.js',
       html: `Hello.
           Thank you for registering. Please click the link to complete yor activation
-          <a href='http://bbards.com/activate/${authToken}'>Activation Link</a>`,
+          <a href='http://localhost:3000/activate/${authToken}'>Activation Link</a>`,
     });
   }
 
@@ -66,7 +66,9 @@ export class Service {
         isAuthenticated: false,
         authToken: sign({ iat: new Date().getTime() }, `${secret}`),
         dateAdded: new Date(),
-        lastLoggedIn: new Date(),
+        lastLoggedIn: null,
+        logOutDate: null,
+        authorizationToken: null,
       };
       await this.repository.insertOne({ ...credentials, password: hashedPassword });
       await this.emailConfirmation({ email: credentials.email, authToken: credentials.authToken });
@@ -79,13 +81,23 @@ export class Service {
   async userLogin(req: Request, res: Response, next: NextFunction) {
     const { email, password }: User = req.body;
     console.log(email, password);
-    const user = await this.repository.findOne({ email }, { password: 1, isAuthenticated: 1, authToken: 1, _id: 1 });
+    const user = await this.repository.findOne(
+      { email },
+      { email: 1, password: 1, isAuthenticated: 1, authToken: 1, _id: 1 }
+    );
     try {
       const match = user && (await compare(password, user.password));
-      console.log(match);
       if (!match || user.isAuthenticated === false || user.authToken !== null)
-        return res.status(StatusCode.BAD_REQUEST).json({ error: ErrorMessage.WRONG });
+        return res.status(StatusCode.BAD_REQUEST).json({ error: ErrorMessage.WRONG }).end();
+
       const token: string = sign({ token: user._id }, `${secret}`);
+
+      await this.repository.updateOne(
+        { email: user.email },
+        { $set: { authorizationToken: token, lastLoggedIn: new Date() } },
+        {}
+      );
+
       return res.status(200).json({ token });
     } catch (err) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR);
@@ -99,7 +111,7 @@ export class Service {
         { _id: new ObjectId(token) },
         { email: 1, name: 1, lastLoggedIn: 1, _id: 0 }
       );
-      console.log(user);
+      console.log('User data', user);
       res.status(StatusCode.SUCCESS).json({ user });
     } catch (err) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR);
@@ -145,11 +157,14 @@ export class Service {
   async userLogout(req: Request, res: Response, next: NextFunction) {
     const { token } = req.user as { token: string };
     try {
-      console.log(token);
-      req.user = null;
-      return res.status(200).json({ message: 'You have been logged out successfully' }).removeHeader('Authorization');
+      await this.repository.updateOne(
+        { _id: new ObjectId(token) },
+        { $set: { authorizationToken: null, lastLoggedIn: null, logOutDate: new Date() } },
+        {}
+      );
+      return res.status(200).json({ message: 'You have been logged out successfully' });
     } catch (err) {
-      res.status(StatusCode.FORBIDDEN);
+      res.status(StatusCode.INTERNAL_SERVER_ERROR);
     }
   }
 }
