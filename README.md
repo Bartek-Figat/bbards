@@ -25,16 +25,16 @@
 
 ###Backend
 
-```bash
+```javascript
   npm install
   npm run dev
 ```
 
 ###Client
 
-```bash
-  npm install
-  npm start
+```javascript
+  yarn install
+  yarn start
 ```
 
 ## Environment
