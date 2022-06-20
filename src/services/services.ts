@@ -109,7 +109,7 @@ export class Service {
     try {
       const user = await this.repository.findOne(
         { _id: new ObjectId(token) },
-        { email: 1, name: 1, lastLoggedIn: 1, _id: 0 }
+        { email: 1, name: 1, lastLoggedIn: 1, logOutDate: 1, _id: 0 }
       );
       console.log('User data', user);
       res.status(StatusCode.SUCCESS).json({ user });
