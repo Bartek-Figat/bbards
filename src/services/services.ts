@@ -36,7 +36,7 @@ const transporter = createTransport({
   },
 });
 
-export class Service {
+export class UserService {
   constructor(private repository: Repository = new Repository()) {}
 
   async emailConfirmation({ email, authToken }: Credentials): Promise<void> {
@@ -59,18 +59,16 @@ export class Service {
         return res.status(StatusCode.BAD_REQUEST).json({
           error: ErrorMessage.BEDREQ,
         });
-      const hashedPassword = await hash(password, saltRounds);
       const credentials = {
         email: email.toLowerCase(),
         name: userName,
-        isAuthenticated: false,
+        isVerified: false,
         authToken: sign({ iat: new Date().getTime() }, `${secret}`),
         dateAdded: new Date(),
         lastLoggedIn: null,
         logOutDate: null,
-        authorizationToken: null,
       };
-      await this.repository.insertOne({ ...credentials, password: hashedPassword });
+      await this.repository.insertOne({ ...credentials, password: await hash(password, saltRounds) });
       await this.emailConfirmation({ email: credentials.email, authToken: credentials.authToken });
       return res.status(StatusCode.SUCCESS).json({ message: 'User registered successfully' });
     } catch (err) {
@@ -83,18 +81,21 @@ export class Service {
     console.log(email, password);
     const user = await this.repository.findOne(
       { email },
-      { email: 1, password: 1, isAuthenticated: 1, authToken: 1, _id: 1 }
+      { email: 1, password: 1, isVerified: 1, authToken: 1, _id: 1 }
     );
     try {
       const match = user && (await compare(password, user.password));
-      if (!match || user.isAuthenticated === false || user.authToken !== null)
+      if (!match || user.isVerified === false || user.authToken !== null)
         return res.status(StatusCode.BAD_REQUEST).json({ error: ErrorMessage.WRONG }).end();
 
-      const token: string = sign({ token: user._id }, `${secret}`);
+      const token: string = sign({ token: user._id.toString() }, `${secret}`);
+      console.log(token);
 
       await this.repository.updateOne(
         { email: user.email },
-        { $set: { authorizationToken: token, lastLoggedIn: new Date() } },
+        {
+          $addToSet: { authorizationToken: { $each: [`${token}`] } },
+        },
         {}
       );
 
@@ -105,13 +106,18 @@ export class Service {
   }
 
   async userData(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.user as { token: string };
+    const { token } = req.user as {
+      token: {
+        token: string;
+      };
+    };
+
     try {
       const user = await this.repository.findOne(
-        { _id: new ObjectId(token) },
+        { _id: new ObjectId(token.token) },
         { email: 1, name: 1, lastLoggedIn: 1, logOutDate: 1, _id: 0 }
       );
-      console.log('User data', user);
+
       res.status(StatusCode.SUCCESS).json({ user });
     } catch (err) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR);
@@ -140,7 +146,7 @@ export class Service {
       {
         $set: {
           authToken: null,
-          isAuthenticated: true,
+          isVerified: true,
         },
       },
       {}
@@ -153,15 +159,23 @@ export class Service {
       html: `Your account has benne successfully activated`,
     });
   }
-
+  // $set: { lastLoggedIn: null, logOutDate: new Date() },
   async userLogout(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.user as { token: string };
+    const { token, authHeader } = req.user as {
+      token: {
+        token: string;
+      };
+      authHeader: string;
+    };
     try {
-      await this.repository.updateOne(
-        { _id: new ObjectId(token) },
-        { $set: { authorizationToken: null, lastLoggedIn: null, logOutDate: new Date() } },
+      const v = await this.repository.updateOne(
+        { _id: new ObjectId(token.token) },
+        {
+          $pull: { authorizationToken: authHeader },
+        },
         {}
       );
+      console.log(v);
       return res.status(200).json({ message: 'You have been logged out successfully' });
     } catch (err) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR);

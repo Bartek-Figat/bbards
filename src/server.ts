@@ -1,6 +1,5 @@
 import { config } from 'dotenv';
 import express, { Express } from 'express';
-import session from 'express-session';
 import helemt from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
@@ -8,6 +7,7 @@ import process from 'process';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import router from './routes/routes';
+import cors from 'cors';
 
 config();
 
@@ -20,13 +20,14 @@ const server: Express = express();
 server.use(express.urlencoded({ limit: '50mb', extended: true }));
 server.use(express.json({ limit: '50mb' }));
 server.use(compression());
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+server.use(
+  cors({
+    methods: ['GET, POST, PUT, DELETE, OPTIONS'],
+    credentials: true,
+    origin: '*',
+    allowedHeaders: ['Origin, X-Requested-With, Content-Type, Accept, Authorization'],
+  })
+);
 server.use(helemt());
 server.use(morgan('tiny'));
 

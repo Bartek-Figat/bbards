@@ -12,21 +12,26 @@ export class Middleware {
 
     if (!token) return res.status(StatusCode.UNAUTHORIZED).json({ status: `${StatusCode.UNAUTHORIZED}` });
 
-    const authorizationToken = await this.repository.findOne(
-      { authorizationToken: token },
+    const authorizationToken = await this.repository.find(
+      { authorizationToken: { $in: [token] } },
       { authorizationToken: 1, _id: 0 }
     );
+
+    console.log('20 -> authorizationToken', authorizationToken);
 
     if (!authorizationToken) {
       return res.status(StatusCode.UNAUTHORIZED).json({ status: `${StatusCode.UNAUTHORIZED}` });
     } else {
       try {
-        verify(token, `secret`, (err, token) => {
+        verify(token, `secret`, (err, tokenVerify) => {
           if (err)
             return res.status(StatusCode.UNAUTHORIZED).json({
               status: `${StatusCode.UNAUTHORIZED}`,
             });
-          req.user = token as JwtPayload;
+          req.user = {
+            token: tokenVerify as JwtPayload,
+            authHeader: token,
+          };
           next();
         });
       } catch (err) {

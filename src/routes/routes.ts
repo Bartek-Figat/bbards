@@ -1,13 +1,13 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { userRegisterValidatioin, userLoginValidation } from '../validation/validation';
 import { Middleware } from '../middleware/middleware';
-import { Service } from '../services/services';
+import { UserService } from '../services/services';
 const router = Router({
   caseSensitive: true,
   strict: true,
 });
 
-const service = new Service();
+const service = new UserService();
 const middleware = new Middleware();
 
 router.get('/user', middleware.isAuthenticated.bind(middleware), service.userData.bind(service));

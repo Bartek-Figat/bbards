@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Document, Collection, MongoClient } from 'mongodb';
+import { Document, Collection, MongoClient, UpdateResult } from 'mongodb';
 import { DataBase } from '../db/db';
 dotenv.config();
 
@@ -56,6 +56,19 @@ export class Repository {
     });
     try {
       const result = await collection.updateOne(filter, updateDoc, options);
+      return result;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      await client.close();
+    }
+  }
+  async updateMany<T>(filter: T, updateDoc: T, options: T): Promise<Document | UpdateResult> {
+    const { collection, client } = await this.db.connect(dbDEV, {
+      useNewUrlParser: true,
+    });
+    try {
+      const result = await collection.updateMany(filter, updateDoc, options);
       return result;
     } catch (err) {
       console.log(err);
