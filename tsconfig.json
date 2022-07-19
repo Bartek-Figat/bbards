@@ -19,5 +19,5 @@
     "resolveJsonModule": true,
     "typeRoots": ["@types", "node_modules/@types"]
   },
-  "exclude": ["node_modules", "./client"]
+  "exclude": ["node_modules", "./client", "lib"]
 }

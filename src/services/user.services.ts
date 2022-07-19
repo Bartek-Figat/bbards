@@ -159,7 +159,7 @@ export class UserService {
       html: `Your account has benne successfully activated`,
     });
   }
-  // $set: { lastLoggedIn: null, logOutDate: new Date() },
+
   async userLogout(req: Request, res: Response, next: NextFunction) {
     const { token, authHeader } = req.user as {
       token: {

@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import process from 'process';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import router from './routes/routes';
+import router from './routes/user.routes';
 import cors from 'cors';
 
 config();

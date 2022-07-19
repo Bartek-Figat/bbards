@@ -1,6 +1,7 @@
 export enum Index {
   Users = 'users',
   Db = 'test',
+  Advert = 'advert',
 }
 
 export enum StatusCode {
@@ -18,4 +19,5 @@ export enum ErrorMessage {
   WRONG = 'Something went wrong.',
   AGAIN = 'Something went wrong please try again',
   BEDREQ = 'Bad request',
+  NOT_FOUND = 'NOT_FOUND',
 }

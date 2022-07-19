@@ -1,7 +1,7 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import { userRegisterValidatioin, userLoginValidation } from '../validation/validation';
 import { Middleware } from '../middleware/middleware';
-import { UserService } from '../services/services';
+import { UserService } from '../services/user.services';
 const router = Router({
   caseSensitive: true,
   strict: true,

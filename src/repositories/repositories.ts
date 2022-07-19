@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Document, Collection, MongoClient, UpdateResult } from 'mongodb';
+import { Document,  UpdateResult } from 'mongodb';
 import { DataBase } from '../db/db';
 dotenv.config();
 
@@ -9,11 +9,11 @@ export class Repository {
   constructor(private db: DataBase = new DataBase()) {}
 
   async findOne<T>(query: T, projection: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbDEV, {
+    const { usersCollection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.findOne(query, { projection });
+      const result = await usersCollection.findOne(query, { projection });
       return result;
     } catch (err) {
       console.log(err);
@@ -23,11 +23,11 @@ export class Repository {
   }
 
   async find<T>(query: T, projection?: T): Promise<Document[]> {
-    const { collection, client } = await this.db.connect(dbDEV, {
+    const { usersCollection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.find(query, { projection }).toArray();
+      const result = await usersCollection.find(query, { projection }).toArray();
       return result;
     } catch (err) {
       console.log(err);
@@ -37,11 +37,11 @@ export class Repository {
   }
 
   async insertOne<T>(document: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbDEV, {
+    const { usersCollection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.insertOne(document);
+      const result = await usersCollection.insertOne(document);
       return result;
     } catch (err) {
       console.log(err);
@@ -51,11 +51,11 @@ export class Repository {
   }
 
   async updateOne<T>(filter: T, updateDoc: T, options: T): Promise<Document> {
-    const { collection, client } = await this.db.connect(dbDEV, {
+    const { usersCollection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.updateOne(filter, updateDoc, options);
+      const result = await usersCollection.updateOne(filter, updateDoc, options);
       return result;
     } catch (err) {
       console.log(err);
@@ -64,11 +64,11 @@ export class Repository {
     }
   }
   async updateMany<T>(filter: T, updateDoc: T, options: T): Promise<Document | UpdateResult> {
-    const { collection, client } = await this.db.connect(dbDEV, {
+    const { usersCollection, client } = await this.db.connect(dbDEV, {
       useNewUrlParser: true,
     });
     try {
-      const result = await collection.updateMany(filter, updateDoc, options);
+      const result = await usersCollection.updateMany(filter, updateDoc, options);
       return result;
     } catch (err) {
       console.log(err);
