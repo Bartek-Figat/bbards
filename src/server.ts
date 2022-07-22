@@ -6,7 +6,8 @@ import morgan from 'morgan';
 import process from 'process';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import router from './routes/user.routes';
+import userRouter from './routes/user.routes';
+import advertRouter from './routes/advert.routes';
 import cors from 'cors';
 
 config();
@@ -46,6 +47,7 @@ const options = {
 
 const specs = swaggerJSDoc(options);
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-server.use('/api/v1', router);
+server.use('/api/v1', userRouter);
+server.use('/api/v1', advertRouter);
 
 server.listen(Port, () => console.log(`Server is starting cleanup at: http://localhost:${Port}`));

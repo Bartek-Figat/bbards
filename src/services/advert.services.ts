@@ -1,19 +1,19 @@
-import dotenv from 'dotenv';
-import fetch from 'node-fetch';
-import { ObjectId } from 'mongodb';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
+import Nominatim from 'nominatim-geocoder';
+import { ObjectId } from 'mongodb';
 import { Repository } from '../repositories/repositories';
-import { StatusCode, ErrorMessage } from '../enum';
+import { StatusCode } from '../enum';
 
+const geocoder = new Nominatim();
 interface Advertisement {
   city: string;
   state: string;
   description: string;
   price: number;
-  images: string[];
+  images: Array<string>;
   autor: {};
   date: Date;
-  coordinates: [string, string];
+  coordinates: Array<string>;
 }
 
 interface Coordinates {
@@ -24,75 +24,22 @@ interface Coordinates {
 export class AdvertService {
   constructor(private repository: Repository = new Repository()) {}
 
-  async getAdvert(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.user as {
-      token: {
-        token: string;
-      };
-    };
-    const advert = await this.repository.find({ _id: new ObjectId(token.token) }, { _id: 0 });
-    if (!advert) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        error: ErrorMessage.NOT_FOUND,
-      });
-    }
-    return res.status(StatusCode.SUCCESS).json(advert);
-  }
-
-  async addAdvert(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.user as {
-      token: {
-        token: string;
-      };
-    };
+  async addAdvert(req: Request, res: Response, next: NextFunction): Promise<Response> {
     const { state, city, images, description, price } = req.body;
-    const location = await (
-      await fetch(`https://nominatim.openstreetmap.org/search?city=${city}&state=${state}&format=json`)
-    ).json();
 
-    const { lat, lon } = location as Coordinates;
+    const location: Coordinates = await geocoder.search({ city, state });
+
     const advert: Advertisement = {
       state,
       city,
       images,
       description,
       price,
-      autor: new ObjectId(token.token),
+      autor: new ObjectId('507f191e810c19729de860ea'),
       date: new Date(),
-      coordinates: [lat, lon],
+      coordinates: [location[0].lat, location[0].lon],
     };
-    const advertToAdd = await this.repository.insertOne(advert);
-    if (!advertToAdd) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        error: ErrorMessage.NOT_FOUND,
-      });
-    }
-    const newAdvert = await this.repository.insertOne(advert);
-    return res.status(StatusCode.SUCCESS).json(newAdvert);
-  }
 
-  updateAdvert(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.user as {
-      token: {
-        token: string;
-      };
-    };
-    const { advert } = req.body;
-    const advertToUpdate = this.repository.findOne({ _id: new ObjectId(token.token) }, { _id: 0 });
-    if (!advertToUpdate) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        error: ErrorMessage.NOT_FOUND,
-      });
-    }
-    const updatedAdvert = this.repository.updateOne(
-      { _id: new ObjectId(token.token) },
-      {
-        $set: {
-          advert,
-        },
-      },
-      {}
-    );
-    return res.status(StatusCode.SUCCESS).json(updatedAdvert);
+    return res.status(StatusCode.SUCCESS).json(advert);
   }
 }
